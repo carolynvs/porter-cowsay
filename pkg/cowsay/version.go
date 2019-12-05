@@ -3,7 +3,7 @@ package cowsay
 import (
 	"fmt"
 
-	"github.com/deislabs/porter-cowsay/pkg"
+	"get.porter.sh/mixin/cowsay/pkg"
 )
 
 func (m *Mixin) PrintVersion() {
