@@ -49,7 +49,7 @@ var _ builder.StepWithOutputs = Step{}
 type Step struct {
 	Name        string        `yaml:"name"`
 	Description string        `yaml:"description"`
-	Arguments   []string      `yaml:"message,omitempty"`
+	Message     string        `yaml:"message,omitempty"`
 	Flags       builder.Flags `yaml:"flags,omitempty"`
 	Outputs     []Output      `yaml:"outputs,omitempty"`
 }
@@ -59,7 +59,7 @@ func (s Step) GetCommand() string {
 }
 
 func (s Step) GetArguments() []string {
-	return s.Arguments
+	return []string{s.Message}
 }
 
 func (s Step) GetFlags() builder.Flags {
