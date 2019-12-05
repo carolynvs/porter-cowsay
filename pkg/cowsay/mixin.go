@@ -2,7 +2,7 @@
 package cowsay
 
 import (
-	"github.com/deislabs/porter/pkg/context"
+	"get.porter.sh/porter/pkg/context"
 )
 
 type Mixin struct {

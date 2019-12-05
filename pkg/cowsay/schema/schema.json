@@ -80,11 +80,8 @@
         "description": {
           "$ref": "#/definitions/stepDescription"
         },
-        "arguments": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "message": {
+          "type": "string"
         },
         "flags": {
           "type": "object",

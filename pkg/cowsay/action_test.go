@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/deislabs/porter/pkg/exec/builder"
+	"get.porter.sh/porter/pkg/exec/builder"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -24,9 +24,7 @@ func TestMixin_UnmarshalStep(t *testing.T) {
 	assert.Equal(t, "Summon Minion", step.Description)
 	assert.NotEmpty(t, step.Outputs)
 	assert.Equal(t, Output{Name: "VICTORY", JsonPath: "$Id"}, step.Outputs[0])
-
-	require.Len(t, step.Arguments, 1)
-	assert.Equal(t, "man-e-faces", step.Arguments[0])
+	assert.Equal(t, "man-e-faces", step.Message)
 
 	require.Len(t, step.Flags, 1)
 	assert.Equal(t, builder.NewFlag("species", "human"), step.Flags[0])

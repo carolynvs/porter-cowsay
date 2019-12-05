@@ -1,8 +1,7 @@
 install:
   - cowsay:
       description: "Summon Minion"
-      arguments:
-      - "man-e-faces"
+      message: "man-e-faces"
       flags:
         species: "human"
       outputs:
