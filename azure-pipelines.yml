@@ -12,12 +12,6 @@ trigger:
 pool:
   vmImage: 'Ubuntu 16.04'
 
-variables:
-  GOBIN:  '$(GOPATH)/bin' # Go binaries path
-  GOROOT: '/usr/local/go1.13' # Go installation path
-  GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
-  modulePath: '$(GOPATH)/src/get.porter.sh/mixin/cowsay' # Path to the module's code
-
 steps:
 - task: GoTool@0
   inputs:
@@ -25,13 +19,12 @@ steps:
   displayName: 'Install Go'
 
 - script: |
-    set -xeuo pipefail
     mkdir -p /home/vsts/go/bin/
     echo "##vso[task.prependpath]/home/vsts/go/bin/"
   displayName: 'Configure Go'
 
 - script: |
-     make build test-unit
+    make build test-unit
   displayName: 'Unit Test'
 
 - script: |
