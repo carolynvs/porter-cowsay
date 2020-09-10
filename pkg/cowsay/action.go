@@ -5,8 +5,10 @@ import (
 )
 
 var _ builder.ExecutableAction = Action{}
+var _ builder.BuildableAction = Action{}
 
 type Action struct {
+	Name  string
 	Steps []Steps // using UnmarshalYAML so that we don't need a custom type per action
 }
 
@@ -15,18 +17,25 @@ type Action struct {
 // - cowsay: ...
 // and puts the steps into the Action.Steps field
 func (a *Action) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var steps []Steps
-	results, err := builder.UnmarshalAction(unmarshal, &steps)
+	results, err := builder.UnmarshalAction(unmarshal, a)
 	if err != nil {
 		return err
 	}
 
-	// Go doesn't have generics, nothing to see here...
-	for _, result := range results {
-		step := result.(*[]Steps)
-		a.Steps = append(a.Steps, *step...)
+	for actionName, action := range results {
+		a.Name = actionName
+		for _, result := range action {
+			step := result.(*[]Steps)
+			a.Steps = append(a.Steps, *step...)
+		}
+		break // There is only 1 action
 	}
 	return nil
+}
+
+// MakeSteps builds a slice of Steps for data to be unmarshaled into.
+func (a Action) MakeSteps() interface{} {
+	return &[]Steps{}
 }
 
 func (a Action) GetSteps() []builder.ExecutableStep {
